@@ -1,14 +1,21 @@
 import $ from 'jquery';
-
+import api from './api';
 import 'normalize.css';
 import './index.css';
 
 import shoppingList from './shopping-list';
 
 const main = function () {
-  fetch('https://thinkful-list-api.herokuapp.com/ei-student/items')
+  api.createItem('pears')
     .then(res => res.json())
-    .then(data => console.log(data));
+    .then((newItem) => {
+      return api.getItems();
+    })
+    .then(res => res.json())
+    .then((items) => {
+      console.log(items);
+    });
+
   shoppingList.bindEventListeners();
   shoppingList.render();
 };
